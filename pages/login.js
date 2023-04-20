@@ -3,7 +3,7 @@ import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 
 import { auth } from "../firebase/firebase";
-import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, GithubAuthProvider, FacebookAuthProvider } from "firebase/auth";
+import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, GithubAuthProvider, FacebookAuthProvider, sendPasswordResetEmail } from "firebase/auth";
 import { useAuth } from "@/firebase/auth";
 import { useRouter } from "next/router";
 import Loader from "@/components/Loader";
@@ -11,6 +11,8 @@ import Link from "next/link";
 
 const provider = new GoogleAuthProvider();
 const githubProvider = new GithubAuthProvider();
+const facebookProvider = new FacebookAuthProvider();
+    
 
 const LoginForm = () => {
     const [email, setEmail] = useState(null);
@@ -54,6 +56,25 @@ const LoginForm = () => {
             console.error("An error occured", error);
         }
     };
+
+    const signInWithFacebook = async () => {
+        try {
+            const user = await signInWithPopup(auth, facebookProvider);
+        }
+        catch (error) {
+            console.error("An error occured", error);
+        }
+    };
+
+    const resetPassword = async () => {
+        try {
+            await sendPasswordResetEmail(auth, email);
+        }
+        catch (error) {
+            console.error("An error occured", error);
+        }
+    };
+
 
     return isLoading || (!isLoading && authUser) ? (
         <Loader />
@@ -110,6 +131,13 @@ const LoginForm = () => {
                                 }
                             />
                         </div>
+                        <p className="mt-6 ml-1">
+                            <Link href="/login"  className="underline hover:text-blue-400 cursor-pointer" 
+                                onClick={resetPassword}
+                            >
+                                Forgot Password?
+                            </Link>
+                        </p>
                         <button className="bg-black text-white w-44 py-4 mt-10 rounded-full transition-transform hover:bg-black/[0.8] active:scale-90"
                             onClick={loginHandler}
                         >
@@ -117,6 +145,7 @@ const LoginForm = () => {
                         </button>
 
                     </form>
+
 
                 </div>
             </div>
