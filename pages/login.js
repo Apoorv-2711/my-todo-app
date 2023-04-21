@@ -32,7 +32,6 @@ const LoginForm = () => {
 
         try {
             const user = await signInWithEmailAndPassword(auth, email, password);
-            console.log(user);
         }
         catch (error) {
             console.error("An error occured", error);
@@ -42,7 +41,6 @@ const LoginForm = () => {
     const signInWithGoogle = async () => {
         try {
             const user = await signInWithPopup(auth, provider);
-            console.log(user);
         } catch (error) {
             console.error("An error occured", error);
         }
@@ -51,8 +49,8 @@ const LoginForm = () => {
     const signInWithGithub = async () => {
         try {
             const user = await signInWithPopup(auth, githubProvider);
-            console.log(user);
-        } catch (error) {
+        } 
+        catch (error) {
             console.error("An error occured", error);
         }
     };

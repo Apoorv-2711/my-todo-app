@@ -43,7 +43,6 @@ const RegisterForm = () => {
                 email: user.email,
                 username,
             });
-            console.log(user);
         } catch (error) {
             console.error("An error occured", error);
         }
@@ -52,7 +51,6 @@ const RegisterForm = () => {
     const signInWithGoogle = async () => {
         try {
             const user = await signInWithPopup(auth, provider);
-            console.log(user);
         } catch (error) {
             console.error("An error occured", error);
         }
@@ -61,7 +59,6 @@ const RegisterForm = () => {
     const signInWithGithub = async () => {
         try {
             const user = await signInWithPopup(auth, githubProvider);
-            console.log(user);
         } catch (error) {
             console.error("An error occured", error);
         }

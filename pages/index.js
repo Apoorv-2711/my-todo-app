@@ -1,12 +1,7 @@
 import { AiOutlinePlus } from "react-icons/ai";
 import { MdDeleteForever } from "react-icons/md";
 import { GoSignOut } from "react-icons/go";
-// import todoList stylesheet which is present in this folder
 
-
-const arr = [
-    1, 2, 3, 4, 5
-];
 
 import { useAuth } from "@/firebase/auth";
 import { useRouter } from "next/router";
@@ -39,7 +34,6 @@ export default function Home() {
                 content: todoInput,
                 completed: false
             });
-            console.log("Document written with ID: ", docRef.id);
 
             fetchTodos(authUser.uid);
             setTodoInput("");
@@ -64,7 +58,6 @@ export default function Home() {
             const querySnapshot = await getDocs(q);
             let data = []
             querySnapshot.forEach((doc) => {
-                console.log(doc.id, " => ", doc.data());
                 data.push({ ...doc.data(), id: doc.id })
             });
             setTodos(data)
